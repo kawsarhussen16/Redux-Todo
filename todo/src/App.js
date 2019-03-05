@@ -1,14 +1,20 @@
-import React, { Component } from 'react'
-import Header from './components/Header';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import TodoList from './components/TodoList';
 
-export default class App extends Component {
+class App extends Component {
   render() {
     return (
-      <div classname= 'App'>
-        <Header />
-        
+      <div className="App">
+        <h1>{this.props.myTodo}</h1>
+        <TodoList />
       </div>
-    )
+    );
   }
 }
 
+function mapStateToProps(state) {
+  return { myTodo: state.title }
+}
+
+export default connect(mapStateToProps, {})(App);

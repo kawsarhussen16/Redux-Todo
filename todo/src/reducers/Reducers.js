@@ -1,11 +1,41 @@
-import React, { Component } from 'react'
+import { ADD_TODO, TOGGLE_TODO, DELETE_TODO } from '../actions/Action'
 
-export default class Reducers extends Component {
-  render() {
-    return (
-      <div>
-        
-      </div>
-    )
-  }
+let initialState ={
+    title: "My Todo App",
+    todos: [
+        { todo: "Need to water the garden", complete: false },
+        { todo: "Need more sugar", complete: true},
+        { todo: "Need to clean dishes", complete: false},
+    ]
+}
+
+export default function Reducer(state = initialState, action) {
+    switch(action.type) {
+        case ADD_TODO:
+            console.log('add_todo:', action)
+            const newTodo = {
+                todo: action.payload,
+                complete: false
+            }
+            return {
+                ...state, todos: [...state.todos, newTodo]
+            }
+
+        case TOGGLE_TODO:
+            return {
+                ...state, 
+                todos: state.todos.map((todo, index) => 
+                    action.payload === index ? {...todo, complete: !todo.complete} : todo
+                )
+            }
+
+        case DELETE_TODO:
+            return {
+                ...state,
+                todos: state.todos.filter((todo, index) => action.payload !== index)
+            }
+
+        default: 
+            return state
+    }
 }
