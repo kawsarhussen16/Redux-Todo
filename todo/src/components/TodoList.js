@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-
 import { addTodo, toggleTodo, deleteTodo } from '../actions/Action';
 
 class TodoList extends Component {
@@ -41,12 +40,12 @@ class TodoList extends Component {
                     <button type ='submit'> Add Todo</button>
                     <div>
                         {this.props.todos.map((todoItem, index) => {
-                            return <li 
+                            return <div
                                     style={{ textDecoration: todoItem.complete ? 'line-through' : 'none'}}
                                     onClick={e => this.toggleItem(e, index)} key={index}>
                                 {todoItem.todo}
                                 <button onClick={e => this.deleteItem(e, index)} key={index}>X</button>
-                            </li>
+                            </div>
                         })}
                     </div>
                 </form>

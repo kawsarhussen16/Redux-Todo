@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import TodoList from './components/TodoList';
 import styled from 'styled-components';
 const AppBar = styled.div` 
@@ -30,7 +29,7 @@ class App extends Component {
     return (
       <AppBar className="App">
         <div className= 'wrapper'>
-          <h1 className= 'header'>{this.props.myTodos}</h1>
+          <h1 className= 'header'> My ToDo Lists: </h1>
           <TodoList  className= 'todoCont'/>
         </div>
       </AppBar>
@@ -38,8 +37,4 @@ class App extends Component {
   }
 }
 
-function mapStateToProps(state) {
-  return { myTodos: state.title }
-}
-
-export default connect(mapStateToProps, {})(App);
+export default App;

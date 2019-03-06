@@ -1,7 +1,6 @@
 import { ADD_TODO, TOGGLE_TODO, DELETE_TODO } from '../actions/Action'
 
 let initialState ={
-    title: "My Todo App",
     todos: [
         { todo: "Need to water the garden", complete: false },
         { todo: "Need more sugar", complete: true},
