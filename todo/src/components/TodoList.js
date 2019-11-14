@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { addTodo, toggleTodo, deleteTodo } from '../actions/Action';
+import styled from 'styled-components';
 
 class TodoList extends Component {
     constructor(props) {
         super(props);
-        this.state ={
+        this.state = {
             inputValue: ""
         }
     }
@@ -16,7 +17,7 @@ class TodoList extends Component {
     createNewTodo = e => {
         e.preventDefault();
         this.props.addTodo(this.state.inputValue)
-        this.setState({ inputValue: ""})
+        this.setState({ inputValue: "" })
     }
 
     toggleItem = (e, index) => {
@@ -28,28 +29,33 @@ class TodoList extends Component {
         e.preventDefault()
         this.props.deleteTodo(index)
     }
-    render(){
-        return(
+    render() {
+        return (
             <div>
                 <form onSubmit={this.createNewTodo}>
-                    <input 
-                        type ='text'
-                        value ={this.state.inputValue}
-                        onChange ={this.handleChange}
-                    />
-                    <button type ='submit'> Add Todo</button>
+                    <InputBox>
+                        <input
+                            type='text'
+                            value={this.state.inputValue}
+                            onChange={this.handleChange}
+                        />
+                        <SubmitButton className="submit" type='submit'> Add Todo</SubmitButton>
+                    </InputBox>
+
                     <div>
                         {this.props.todos.map((todoItem, index) => {
-                            return <div
-                                    style={{ textDecoration: todoItem.complete ? 'line-through' : 'none'}}
-                                    onClick={e => this.toggleItem(e, index)} key={index}>
-                                {todoItem.todo}
-                                <button onClick={e => this.deleteItem(e, index)} key={index}>X</button>
-                            </div>
+                            return (
+                                <Todo key={index} >
+                                    <div style={{ textDecoration: todoItem.complete ? 'line-through' : 'none' }} onClick={e => this.toggleItem(e, index)} >
+                                        {todoItem.todo}
+                                    </div>
+                                    <Button onClick={e => this.deleteItem(e, index)} >delete</Button>
+                                </Todo>
+                            )
                         })}
                     </div>
                 </form>
-            </div>
+            </div >
         );
 
     }
@@ -61,4 +67,48 @@ function mapStateToProps(state) {
     }
 }
 
-export default connect(mapStateToProps, {addTodo, toggleTodo, deleteTodo})(TodoList);
+export default connect(mapStateToProps, { addTodo, toggleTodo, deleteTodo })(TodoList);
+const Todo = styled.div`
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+
+`
+
+const Button = styled.div`
+    margin: 2px;
+    padding: 3px;
+    border: 2px solid red;
+    width: 50px;
+    height: auto;
+    border-radius: 5px;
+
+    &:hover{
+        background: white;
+        color: red;
+        cursor: pointer;
+    }
+
+`
+const SubmitButton = styled.div`
+    margin: 2px;
+    padding: 3px;
+    border: 2px solid green;
+    width: 80px;
+    height: auto;
+    border-radius: 5px;
+    &:hover{
+        background: black;
+        color: green;
+        cursor: pointer;
+    }
+
+`
+
+const InputBox = styled.div`
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: 10px auto;
+
+`
